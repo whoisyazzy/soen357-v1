@@ -41,7 +41,7 @@ python3 -m http.server 8357
 Open this address before each participant (replace the start with the live link):
 
 ```
-https://whoisyazzy.github.io/soen357-v1/#/profile/?reset&today=2026-11-05
+https://whoisyazzy.github.io/soen357-v1/?reset&today=2026-11-05#/pantry
 ```
 
 - `?reset` restores the sample data (Profile → *Reset sample data* does the same).
