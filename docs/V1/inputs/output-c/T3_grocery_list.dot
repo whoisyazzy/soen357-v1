@@ -1,0 +1,59 @@
+digraph T3 {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=20, labelloc=t, nodesep=0.45, ranksep=0.5, pad=0.3,
+         label="Figure 5.3: T3 Prepare grocery list (Output C)\n "];
+  node  [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor=white, color="#444444", penwidth=1.3, margin="0.18,0.08"];
+  edge  [fontname="DejaVu Sans", fontsize=10, color="#333333", arrowsize=0.8];
+
+  start  [label="START\nMeal detail: Vegetable pasta\n(Missing: pasta 200 g)", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+  conf   [label="NOTICE: Selection confirmation\n\"Vegetable pasta selected. 1 ingredient is missing.\"\nAdd 1 missing item to grocery list | Not now", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  notnow [label="Meal detail: meal \"Selected\",\nGrocery list unchanged", fillcolor="#eeeeee"];
+  onlist [label="Item already on\nGrocery list?", shape=diamond, style=filled, fillcolor=white];
+  dupn   [label="NOTICE: No duplicate\n\"Pasta is already on your grocery list.\nNothing was added twice.\"", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  toast  [label="Toast \"1 item added to grocery list\"\nView grocery list | Undo", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  undo   [label="Undo: item removed,\nGrocery list as before", fillcolor="#fff4c2", color="#b8860b"];
+  glist  [label="Grocery list\nGroup \"Vegetable pasta\": Pasta 200 g\n(stepper, checkbox, Remove; Add item field)"];
+  qty    [label="Edit quantity"];
+  qval   [label="Quantity\ngreater than 0?", shape=diamond, style=filled, fillcolor=white];
+  qerr   [label="ERROR\n\"Enter a quantity greater than 0\"\n(previous value kept)", fillcolor="#fbdcdc", color="#c62828", penwidth=2];
+  add    [label="Add item (manual)"];
+  aval   [label="Name\nentered?", shape=diamond, style=filled, fillcolor=white];
+  aerr   [label="ERROR\n\"Enter an item name\"", fillcolor="#fbdcdc", color="#c62828", penwidth=2];
+  rem    [label="Toast \"Pasta removed\" + Undo", fillcolor="#fff4c2", color="#b8860b"];
+  empty  [label="NOTICE: Empty state\n\"Your grocery list is empty\"", fillcolor="#fff4c2", color="#b8860b"];
+  done   [label="SUCCESS\nGrocery list shows the missing item\nwith the edited quantity (\"Saved\")", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+
+  start -> conf [label="Select this meal"];
+  conf -> notnow [label="Not now", style=dashed];
+  notnow -> conf [label="Add missing items\n(button on Meal detail)", style=dashed];
+  conf -> onlist [label="Add 1 missing item"];
+  onlist -> dupn [label="Yes"];
+  dupn -> glist [label="View grocery list"];
+  onlist -> toast [label="No"];
+  toast -> undo [label="Undo", style=dashed];
+  toast -> glist [label="View grocery list\n(or Grocery list tab)"];
+  glist -> qty [label="+ / - or type"];
+  qty -> qval;
+  qval -> qerr [label="No", color="#c62828", fontcolor="#c62828"];
+  qerr -> qty [label="correct value", color="#c62828", fontcolor="#c62828"];
+  qval -> done [label="Yes"];
+  glist -> add [label="Add item"];
+  add -> aval [label="Add"];
+  aval -> aerr [label="No", color="#c62828", fontcolor="#c62828"];
+  aerr -> add [label="type name", color="#c62828", fontcolor="#c62828"];
+  aval -> glist [label="Yes (\"Added by you\")"];
+  glist -> rem [label="Remove"];
+  rem -> glist [label="Undo (item restored)", style=dashed];
+  rem -> empty [label="last item removed"];
+
+  subgraph cluster_legend {
+    label="Legend"; fontsize=11; color="#999999"; style=rounded;
+    l1 [label="Start / success", fillcolor="#d6efd6", color="#2e7d32", fontsize=10];
+    l2 [label="Error", fillcolor="#fbdcdc", color="#c62828", fontsize=10];
+    l3 [label="Notice / dialog", fillcolor="#fff4c2", color="#b8860b", fontsize=10];
+    l4 [label="Screen", fontsize=10];
+    l5 [label="Decision", shape=diamond, style=filled, fillcolor=white, fontsize=10];
+    la [label="", shape=point, width=0.05]; lb [label="", shape=point, width=0.05];
+    la -> lb [label="dashed = Cancel / Back / Undo", style=dashed, fontsize=10];
+    l1 -> l2 -> l3 -> l4 -> l5 [style=invis];
+  }
+}

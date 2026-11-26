@@ -1,0 +1,71 @@
+digraph T1 {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=20, labelloc=t, nodesep=0.45, ranksep=0.5, pad=0.3,
+         label="Figure 5.1: T1 Manage pantry (Output C)\n "];
+  node  [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor=white, color="#444444", penwidth=1.3, margin="0.18,0.08"];
+  edge  [fontname="DejaVu Sans", fontsize=10, color="#333333", arrowsize=0.8];
+
+  start   [label="START\nPantry (launch screen)", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+
+  // ---- Add path ----
+  addform [label="Add ingredient form\nName, Quantity, Unit,\nStorage location, Date type, Date"];
+  valid1  [label="All required\nfields valid?", shape=diamond, style=filled, fillcolor=white];
+  err1    [label="ERROR (fields kept)\n\"Enter an ingredient name\"\n\"Enter a quantity greater than 0\"", fillcolor="#fbdcdc", color="#c62828", penwidth=2];
+  dup     [label="Name already\nin Pantry?", shape=diamond, style=filled, fillcolor=white];
+  dupn    [label="NOTICE: Duplicate\n\"Zucchini is already in your pantry.\"\nAdd to existing | Keep as separate item | Cancel", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  past1   [label="Date already\npassed?", shape=diamond, style=filled, fillcolor=white];
+  pastn   [label="NOTICE: Past date\n\"This date has passed. Check it,\nor save the item with a Past date label.\"\nSave anyway | Change date", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  saved1  [label="SUCCESS\nPantry: item shown with name, quantity,\nlocation, date status\nToast \"Zucchini added\" + Undo", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+  undo1   [label="Undo: item removed,\nPantry as before", fillcolor="#fff4c2", color="#b8860b"];
+
+  // ---- Cancel / discard ----
+  unsaved [label="Unsaved\nchanges?", shape=diamond, style=filled, fillcolor=white];
+  discard [label="NOTICE: Discard dialog\n\"Discard your changes?\"\nKeep editing | Discard changes", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  nochange[label="Pantry, unchanged", fillcolor="#eeeeee"];
+
+  // ---- Edit path ----
+  detail  [label="Ingredient detail / Edit\n(pre-filled form)"];
+  valid2  [label="Quantity\nvalid?", shape=diamond, style=filled, fillcolor=white];
+  err2    [label="ERROR (other fields kept)\n\"Enter a quantity greater than 0\"", fillcolor="#fbdcdc", color="#c62828", penwidth=2];
+  saved2  [label="SUCCESS\nPantry shows new quantity\nToast \"Zucchini updated\" + Undo", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+
+  start -> addform [label="Add ingredient"];
+  addform -> valid1 [label="Save"];
+  valid1 -> err1 [label="No", color="#c62828", fontcolor="#c62828"];
+  err1 -> addform [label="correct field", color="#c62828", fontcolor="#c62828"];
+  valid1 -> dup [label="Yes"];
+  dup -> dupn [label="Yes"];
+  dupn -> saved1 [label="Add to existing /\nKeep as separate item"];
+  dupn -> addform [label="Cancel", style=dashed];
+  dup -> past1 [label="No"];
+  past1 -> pastn [label="Yes"];
+  pastn -> saved1 [label="Save anyway"];
+  pastn -> addform [label="Change date", style=dashed];
+  past1 -> saved1 [label="No"];
+  saved1 -> undo1 [label="Undo", style=dashed];
+
+  addform -> unsaved [label="Cancel / Back", style=dashed];
+  detail  -> unsaved [label="Cancel / Back", style=dashed];
+  unsaved -> nochange [label="No", style=dashed];
+  unsaved -> discard [label="Yes"];
+  discard -> nochange [label="Discard changes", style=dashed];
+  discard -> addform [label="Keep editing\n(returns to the open form)", style=dashed];
+
+  start -> detail [label="Tap Zucchini"];
+  detail -> valid2 [label="change quantity,\nSave"];
+  valid2 -> err2 [label="No", color="#c62828", fontcolor="#c62828"];
+  err2 -> detail [label="correct", color="#c62828", fontcolor="#c62828"];
+  valid2 -> saved2 [label="Yes"];
+  saved2 -> undo1 [label="Undo\n(old quantity restored)", style=dashed];
+
+  subgraph cluster_legend {
+    label="Legend"; fontsize=11; color="#999999"; style=rounded;
+    l1 [label="Start / success", fillcolor="#d6efd6", color="#2e7d32", fontsize=10];
+    l2 [label="Error", fillcolor="#fbdcdc", color="#c62828", fontsize=10];
+    l3 [label="Notice / dialog", fillcolor="#fff4c2", color="#b8860b", fontsize=10];
+    l4 [label="Screen", fontsize=10];
+    l5 [label="Decision", shape=diamond, style=filled, fillcolor=white, fontsize=10];
+    la [label="", shape=point, width=0.05]; lb [label="", shape=point, width=0.05];
+    la -> lb [label="dashed = Cancel / Back / Undo", style=dashed, fontsize=10];
+    l1 -> l2 -> l3 -> l4 -> l5 [style=invis];
+  }
+}

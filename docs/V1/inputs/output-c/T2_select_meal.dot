@@ -1,0 +1,59 @@
+digraph T2 {
+  graph [rankdir=TB, fontname="DejaVu Sans", fontsize=20, labelloc=t, nodesep=0.45, ranksep=0.5, pad=0.3,
+         label="Figure 5.2: T2 Select a suitable meal (Output C)\n "];
+  node  [fontname="DejaVu Sans", fontsize=12, shape=box, style="rounded,filled", fillcolor=white, color="#444444", penwidth=1.3, margin="0.18,0.08"];
+  edge  [fontname="DejaVu Sans", fontsize=10, color="#333333", arrowsize=0.8];
+
+  start  [label="START\nMeals tab\nAllergy chip locked \"No peanuts (from Profile)\"\nNote \"1 recipe hidden: contains peanuts\"", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+  match  [label="Any meals match\nfilters?", shape=diamond, style=filled, fillcolor=white];
+  nomatch[label="NOTICE: Empty state\n\"No meals match. Change Servings or\nMax time, or search recipes.\"\n(allergy filter cannot be turned off here)", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  filt   [label="Edit filter chip\n(Servings, Max time)"];
+  fval   [label="Servings\n1 to 12?", shape=diamond, style=filled, fillcolor=white];
+  ferr   [label="ERROR\n\"Enter servings from 1 to 12\"\n(previous value kept)", fillcolor="#fbdcdc", color="#c62828", penwidth=2];
+  list   [label="Suggestion cards, ranked\n(uses \"Use soon\" items first;\nshows items used, missing count, time, difficulty)"];
+  search [label="Search recipes\n(allergy filter still applied)"];
+  res    [label="Results\nfound?", shape=diamond, style=filled, fillcolor=white];
+  nores  [label="NOTICE: Empty state\n\"No recipes found.\nTry a different ingredient.\"", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  detail [label="Meal detail: Zucchini and tomato rice skillet\nHave / Missing list, \"Why this meal\" panel,\nsteps, Select this meal, Reject, Back"];
+  reject [label="Meals: suggestion hidden\nToast \"Suggestion hidden\" + Undo", fillcolor="#fff4c2", color="#b8860b"];
+  miss   [label="Missing\ningredients?", shape=diamond, style=filled, fillcolor=white];
+  conf   [label="NOTICE: Selection confirmation\n\"Zucchini and tomato rice skillet selected.\nAll ingredients are available.\"  OK", fillcolor="#fff4c2", color="#b8860b", penwidth=2];
+  done   [label="SUCCESS\nMeal marked \"Selected\" on card and detail;\npeanut-free recipe chosen", fillcolor="#d6efd6", color="#2e7d32", penwidth=2];
+  t3     [label="Continue in T3\n(Add N missing items to grocery list)", fillcolor="#eeeeee"];
+
+  start -> match;
+  match -> nomatch [label="No"];
+  nomatch -> filt [label="Change filters"];
+  nomatch -> search [label="Search recipes"];
+  start -> filt [label="tap chip"];
+  filt -> fval [label="Apply"];
+  fval -> ferr [label="No", color="#c62828", fontcolor="#c62828"];
+  ferr -> filt [label="correct value", color="#c62828", fontcolor="#c62828"];
+  fval -> match [label="Yes"];
+  match -> list [label="Yes"];
+  list -> detail [label="Tap card"];
+  start -> search [label="Search recipes"];
+  search -> res [label="type query"];
+  res -> nores [label="No"];
+  nores -> search [label="edit query", style=dashed];
+  res -> detail [label="Yes, tap result"];
+  detail -> list [label="Back (filters and\nscroll position kept)", style=dashed];
+  detail -> reject [label="Reject"];
+  reject -> list [label="Undo (suggestion restored)", style=dashed];
+  detail -> miss [label="Select this meal"];
+  miss -> conf [label="No"];
+  conf -> done [label="OK"];
+  miss -> t3 [label="Yes"];
+
+  subgraph cluster_legend {
+    label="Legend"; fontsize=11; color="#999999"; style=rounded;
+    l1 [label="Start / success", fillcolor="#d6efd6", color="#2e7d32", fontsize=10];
+    l2 [label="Error", fillcolor="#fbdcdc", color="#c62828", fontsize=10];
+    l3 [label="Notice / dialog", fillcolor="#fff4c2", color="#b8860b", fontsize=10];
+    l4 [label="Screen", fontsize=10];
+    l5 [label="Decision", shape=diamond, style=filled, fillcolor=white, fontsize=10];
+    la [label="", shape=point, width=0.05]; lb [label="", shape=point, width=0.05];
+    la -> lb [label="dashed = Cancel / Back / Undo", style=dashed, fontsize=10];
+    l1 -> l2 -> l3 -> l4 -> l5 [style=invis];
+  }
+}

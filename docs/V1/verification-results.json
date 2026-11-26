@@ -1,0 +1,550 @@
+{
+  "run": "2026-11-26T18:46:19.586Z",
+  "base": "http://localhost:8357/",
+  "results": [
+    {
+      "id": "T1-01",
+      "task": "T1",
+      "check": "Pantry is the launch screen with sample items",
+      "expected": "Rice, Canned tomatoes, Olive oil; Fridge: No items",
+      "actual": "Today (test date): Thu 5 Nov 2026 Add ingredient Fridge No items Freezer No items Pantry Rice 500 g Canned tomatoes 1 can · Best before 15 D",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-02",
+      "task": "T1",
+      "check": "Today line uses the test date",
+      "expected": "Today (test date): Thu 5 Nov 2026",
+      "actual": "Today (test date): Thu 5 Nov 2026\n\nAdd ingredient\nFridge\n\nNo items\n\nFreezer\n\nNo items\n\nPantry\nRice\n500 g\nCanned tomatoes\n1 can · Best before 15 Dec\nOlive oil\n10…",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-03",
+      "task": "T1",
+      "check": "Add ingredient opens the form at its own address",
+      "expected": "#/pantry/add, title Add ingredient",
+      "actual": "/pantry/add / Add ingredient",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-04",
+      "task": "T1",
+      "check": "Save with empty fields shows inline errors, fields kept",
+      "expected": "Enter an ingredient name / quantity > 0 / Choose a unit / Choose where the item is stored",
+      "actual": "Enter an ingredient name | Enter a quantity greater than 0 (decimals are accepted) | Choose a unit | Choose a unit | Choose where the item is stored",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-05",
+      "task": "T1",
+      "check": "Focus moves to the first invalid field",
+      "expected": "#f-name focused",
+      "actual": "f-name",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-06",
+      "task": "T1",
+      "check": "Date read-back",
+      "expected": "Reads as: Sat 7 Nov 2026 (in 2 days)",
+      "actual": "Reads as: Sat 7 Nov 2026 (in 2 days)",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-07",
+      "task": "T1",
+      "check": "Saved: item under Use soon with badge; toast + Undo",
+      "expected": "Use soon · Reminder 7 Nov (in 2 days); toast 'Zucchini added' Undo",
+      "actual": "Zucchini added Undo × / Zucchini 2 units · Fridge Use soon · Reminder 7 Nov (in 2 days) Fridge No ite",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-08",
+      "task": "T1",
+      "check": "Back on Pantry address after save",
+      "expected": "#/pantry",
+      "actual": "#/pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-09",
+      "task": "T1",
+      "check": "Undo removes the new item",
+      "expected": "Zucchini gone; toast 'Zucchini removed'",
+      "actual": "Zucchini removed ×",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-10",
+      "task": "T1",
+      "check": "Duplicate name opens the duplicate notice",
+      "expected": "Already in your pantry: Zucchini is already in your pantry (2 units, Fridge). Add to existing | Keep as separate item | Cancel",
+      "actual": "Already in your pantry × Zucchini is already in your pantry (2 units, Fridge). Add to existing Keep as separate item Cancel",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-11",
+      "task": "T1",
+      "check": "Cancel on duplicate notice returns to the open form",
+      "expected": "Form still shows 'zucchini'",
+      "actual": "zucchini",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-12",
+      "task": "T1",
+      "check": "Add to existing merges quantities (calculation)",
+      "expected": "Toast 'Zucchini updated: now 4 units'",
+      "actual": "Zucchini updated: now 4 units\nUndo\n×",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-13",
+      "task": "T1",
+      "check": "Undo of merge restores 2 units",
+      "expected": "Zucchini 2 units",
+      "actual": "Today (test date): Thu 5 Nov 2026\n\nAdd ingredient\nUse soon\nZucchini\n2 units · Fridge\nUse soon · Reminder 7 Nov (in 2 days)\nFridge\n\nNo items\n\nFreezer\n\nNo items\n\n…",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-14",
+      "task": "T1",
+      "check": "Past date read-back",
+      "expected": "Reads as: Mon 2 Nov 2026 (3 days ago)",
+      "actual": "Reads as: Mon 2 Nov 2026 (3 days ago)",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-15",
+      "task": "T1",
+      "check": "Past date notice (S3)",
+      "expected": "Check the date: This date has passed... Change date | Save anyway",
+      "actual": "Check the date × This date has passed. Check it, or save the item with a Past date label. Change date Save anyway",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-16",
+      "task": "T1",
+      "check": "Change date returns focus to the date field",
+      "expected": "#f-date focused",
+      "actual": "f-date",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-17",
+      "task": "T1",
+      "check": "Past date label (S4)",
+      "expected": "Past date section: Spinach · Past date · Best before 2 Nov",
+      "actual": "Past date Spinach 1 pack · Fridge Past date · Best before 2 Nov Fridge No items Freezer",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-18",
+      "task": "T1",
+      "check": "Back with unsaved changes asks first (S2)",
+      "expected": "Discard your changes? Your changes to Zucchini will not be saved. Keep editing | Discard changes",
+      "actual": "Discard your changes? × Your changes to Zucchini will not be saved. Keep editing Discard changes",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-19",
+      "task": "T1",
+      "check": "Keep editing returns to the open form with data kept",
+      "expected": "Name Zucchini, date 2026-11-07",
+      "actual": "Zucchini 2026-11-07",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-20",
+      "task": "T1",
+      "check": "Discard changes returns to Pantry, unchanged",
+      "expected": "#/pantry; one Zucchini row",
+      "actual": "/pantry, Zucchini rows: 1",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-21",
+      "task": "T1",
+      "check": "Cancel with no changes leaves without a dialog",
+      "expected": "#/pantry, no dialog",
+      "actual": "/pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-22",
+      "task": "T1",
+      "check": "Tapping Zucchini opens the pre-filled edit form",
+      "expected": "Title 'Edit Zucchini', qty 2, address #/pantry/item/10",
+      "actual": "Edit Zucchini, qty 2, /pantry/item/11",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-23",
+      "task": "T1",
+      "check": "Edit with quantity 0 shows error, other fields kept",
+      "expected": "Enter a quantity greater than 0 (decimals are accepted); name still Zucchini",
+      "actual": "Enter a quantity greater than 0 (decimals are accepted)",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-24",
+      "task": "T1",
+      "check": "Edit saved: new quantity and toast",
+      "expected": "3 units · Fridge; toast 'Zucchini updated' Undo",
+      "actual": "Zucchini updated Undo ×",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-25",
+      "task": "T1",
+      "check": "Undo restores old quantity",
+      "expected": "2 units · Fridge; toast 'Change undone'",
+      "actual": "Change undone\n×",
+      "status": "Pass"
+    },
+    {
+      "id": "W-01",
+      "task": "Website",
+      "check": "Data is kept after a page refresh",
+      "expected": "Zucchini 3 units and Spinach still in pantry",
+      "actual": "Today (test date): Thu 5 Nov 2026 Add ingredient Use soon Zucchini 3 units · Fridge Use soon · Reminder 7 Nov (in 2 days",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-01",
+      "task": "T2",
+      "check": "Meals: filter chips, locked allergy chip, hidden note",
+      "expected": "Servings: 2 | Max time: 30 min | No peanuts (from Profile) | 1 recipe hidden: contains peanuts",
+      "actual": "Servings: 2 | Max time: 30 min | No peanuts (from Profile) | 1 recipe hidden: contains peanuts | Search recipes | Suggested for you",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-02",
+      "task": "T2",
+      "check": "Ranking: skillet (uses Use soon zucchini, 0 missing) before pasta (1 missing)",
+      "expected": "1. Zucchini and tomato rice skillet (0 missing) 2. Vegetable pasta (1 missing)",
+      "actual": "Zucchini and tomato rice skillet Uses: Zucchini (Use soon), Rice, Canned tomatoes, Olive oil 0 missing 25 min Easy || Vegetable pasta Uses: Zucchini (Use soon), Canned tomatoes, Olive oil 1 missing 20 min Easy",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-03",
+      "task": "T2",
+      "check": "Servings 0 is rejected (S5), previous value kept",
+      "expected": "Enter servings from 1 to 12; chip still Servings: 2",
+      "actual": "Enter servings from 1 to 12",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-04",
+      "task": "T2",
+      "check": "Servings 3 applied",
+      "expected": "Chip 'Servings: 3'",
+      "actual": "Servings: 3\nMax time: 30 min\nNo peanuts (from Profile)\n1 recipe hidden: contains peanuts\nSearch recipes\nSuggested for you\nZucchini and tomato rice skillet\nUses:…",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-05",
+      "task": "T2",
+      "check": "Quantities scale to 3 servings (calculation)",
+      "expected": "Zucchini 3 units, Rice 225 g, Canned tomatoes 1.5 can, Olive oil 22.5 ml",
+      "actual": "Zucchini · 3 units Have Rice · 225 g Have Canned tomatoes · 1.5 can Have Olive oil · 22.5 ml Have",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-06",
+      "task": "T2",
+      "check": "No meals match with 15 min (S6)",
+      "expected": "No meals match. Change Servings or Max time, or search recipes.",
+      "actual": "Servings: 2\nMax time: 15 min\nNo peanuts (from Profile)\nMaximum time\n15 min\n30 min\n45 min\n60 min\nAny\n1 recipe hidden: contains peanuts\nSearch recipes\n\nNo meals m…",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-07",
+      "task": "T2",
+      "check": "Allergy chip explains it is set in Profile",
+      "expected": "Allergies are set in your Profile and always applied, including in search.",
+      "actual": "Servings: 2\nMax time: 30 min\nNo peanuts (from Profile)\n\nAllergies are set in your Profile and always applied, including in search.\n\nChange allergies in Profile\n…",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-08",
+      "task": "T2",
+      "check": "Search with no result (S7)",
+      "expected": "No recipes found. Try a different ingredient.",
+      "actual": "Search by recipe or ingredient\n\nNo recipes found. Try a different ingredient.\n\nSearch shows all recipes, including ones over your maximum time. Your allergy fil…",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-09",
+      "task": "T2",
+      "check": "Search keeps allergy filter",
+      "expected": "2 recipes; 1 recipe hidden: contains peanuts",
+      "actual": "1 recipe hidden: contains peanuts | 2 recipes | Zucchini and tomato rice skillet | Uses: Zucchini (Use soon), Rice, Canned tomatoes, Olive oil",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-10",
+      "task": "T2",
+      "check": "Meal detail: Why this meal, all Have",
+      "expected": "Uses Zucchini (Use soon · Reminder 7 Nov); 4 × Have; Select this meal + Reject",
+      "actual": "Zucchini and tomato rice skillet |  | 25 min · 2 servings · Easy |  | Why this meal | Uses Zucchini (Use soon · Reminder 7 Nov) | Also uses Rice, Canned tomatoes, Olive oil from your pantry | Fits your 30 min maximum (25 min)",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-11",
+      "task": "T2",
+      "check": "Back from detail returns to Search with the query kept",
+      "expected": "Search recipes, query 'zucchini'",
+      "actual": "Search recipes / zucchini",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-12",
+      "task": "T2",
+      "check": "Reject hides the suggestion with Undo (S8)",
+      "expected": "Toast 'Suggestion hidden' Undo; pasta not listed; '1 suggestion hidden by you'",
+      "actual": "Suggestion hidden Undo ×",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-13",
+      "task": "T2",
+      "check": "Undo restores the suggestion",
+      "expected": "Vegetable pasta listed again",
+      "actual": "Servings: 2\nMax time: 30 min\nNo peanuts (from Profile)\n1 recipe hidden: contains peanuts\nSearch recipes\nSuggested for you\nZucchini and tomato rice skillet\nUses:…",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-14",
+      "task": "T2",
+      "check": "Select a meal with all ingredients (S9)",
+      "expected": "Meal selected: Zucchini and tomato rice skillet selected. All ingredients are available. OK",
+      "actual": "Meal selected × Zucchini and tomato rice skillet selected. All ingredients are available. OK",
+      "status": "Pass"
+    },
+    {
+      "id": "T2-15",
+      "task": "T2",
+      "check": "Meal marked Selected on detail and card",
+      "expected": "Selected badge on detail; card shows Selected",
+      "actual": "Zucchini and tomato rice skillet Uses: Zucchini (Use soon), Rice, Canned tomatoes, Olive oil 0 missing 25 min Easy Selected",
+      "status": "Pass"
+    },
+    {
+      "id": "W-02",
+      "task": "Website",
+      "check": "Each tab remembers its place",
+      "expected": "Meals tab returns to Vegetable pasta detail",
+      "actual": "/meals/recipe/pasta",
+      "status": "Pass"
+    },
+    {
+      "id": "W-03",
+      "task": "Website",
+      "check": "Browser Back works",
+      "expected": "Back to #/pantry",
+      "actual": "/pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-01",
+      "task": "T3",
+      "check": "Selection confirmation with missing item (09)",
+      "expected": "Vegetable pasta selected. 1 ingredient is missing. Add 1 missing item to grocery list | Not now",
+      "actual": "Meal selected × Vegetable pasta selected. 1 ingredient is missing. Add 1 missing item to grocery list Not now",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-02",
+      "task": "T3",
+      "check": "Not now: meal Selected, grocery list unchanged (S10)",
+      "expected": "Selected badge; button 'Add 1 missing item to grocery list'",
+      "actual": "Vegetable pasta |  | 20 min · 2 servings · Easy | ",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-03",
+      "task": "T3",
+      "check": "Missing item added (S11)",
+      "expected": "Toast '1 item added to grocery list' View grocery list | Undo",
+      "actual": "1 item added to grocery list × View grocery list Undo",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-04",
+      "task": "T3",
+      "check": "Adding again does not duplicate (S12)",
+      "expected": "Already on your list: Pasta is already on your grocery list. Nothing was added twice.",
+      "actual": "Already on your list × Pasta is already on your grocery list. Nothing was added twice. View grocery list OK",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-05",
+      "task": "T3",
+      "check": "Grocery list groups the item by meal (10)",
+      "expected": "For Vegetable pasta: Pasta, From: Vegetable pasta, 200 g",
+      "actual": "Add an item Add For Vegetable pasta Pasta From: Vegetable pasta Remove − + g qty=200",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-06",
+      "task": "T3",
+      "check": "Stepper + adds 50 g and shows Saved (calculation)",
+      "expected": "250, Saved",
+      "actual": "250",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-07",
+      "task": "T3",
+      "check": "Grocery errors (S13)",
+      "expected": "Enter an item name; Enter a quantity greater than 0 (decimals are accepted)",
+      "actual": "Enter an item name | Enter a quantity greater than 0 (decimals are accepted)",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-08",
+      "task": "T3",
+      "check": "Typed quantity is saved (success state)",
+      "expected": "300, Saved",
+      "actual": "300",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-09",
+      "task": "T3",
+      "check": "Manual item added under 'Added by you'",
+      "expected": "Added by you: Bread; toast 'Bread added'",
+      "actual": "Bread added\nUndo\n×",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-10",
+      "task": "T3",
+      "check": "Removing the last item shows the empty state with Undo (S14)",
+      "expected": "Your grocery list is empty...; toast 'Pasta removed' Undo",
+      "actual": "Pasta removed Undo ×",
+      "status": "Pass"
+    },
+    {
+      "id": "T3-11",
+      "task": "T3",
+      "check": "Undo restores the removed item",
+      "expected": "Pasta 300 g back",
+      "actual": "300",
+      "status": "Pass"
+    },
+    {
+      "id": "P-01",
+      "task": "Profile",
+      "check": "Profile summary (11)",
+      "expected": "Allergies Peanuts; Default servings 2; Maximum time 30 min; Display size 100 %",
+      "actual": "Allergies Peanuts Dietary preferences None Default servings 2 Maximum time 30 min Display size 100 % Edit profile About this website Meal Pl",
+      "status": "Pass"
+    },
+    {
+      "id": "P-02",
+      "task": "Profile",
+      "check": "Display size 130 % applies (S15)",
+      "expected": "Root font size 20.8px; toast 'Profile saved. Meals now use your new settings.'",
+      "actual": "20.8px / Profile saved. Meals now use your new settings.\n×",
+      "status": "Pass"
+    },
+    {
+      "id": "W-04",
+      "task": "Website",
+      "check": "Browser Back from a form with unsaved changes asks first",
+      "expected": "Discard your changes? Your changes to your profile will not be saved.; still on #/profile/edit",
+      "actual": "Discard your changes? × Your changes to your profile will not be saved. Keep editing Discard changes @ /profile/edit",
+      "status": "Pass"
+    },
+    {
+      "id": "W-05",
+      "task": "Website",
+      "check": "Discard leaves the form without saving",
+      "expected": "#/profile; Allergies Peanuts",
+      "actual": "/profile / Allergies Peanuts Dietary preferences No",
+      "status": "Pass"
+    },
+    {
+      "id": "P-03",
+      "task": "Profile",
+      "check": "Removing all allergies asks for confirmation",
+      "expected": "Turn off allergy filter? ... Save | Keep editing",
+      "actual": "Turn off allergy filter? × You removed all allergies. Meals will no longer hide recipes that contain allergens. Save Keep editing",
+      "status": "Pass"
+    },
+    {
+      "id": "W-06",
+      "task": "Website",
+      "check": "A screen can be opened directly by its address",
+      "expected": "Meal detail for Vegetable pasta",
+      "actual": "Vegetable pasta\n\n20 min · 2 servings · Easy\n\nSelected\n\nWhy this meal\nUses Zucchini (Use soon · Reminder 7 Nov)\nAlso uses Canned tomatoes, Olive oil from your pa…",
+      "status": "Pass"
+    },
+    {
+      "id": "W-07",
+      "task": "Website",
+      "check": "In-app Back from a direct link goes to the parent screen",
+      "expected": "#/meals",
+      "actual": "/meals",
+      "status": "Pass"
+    },
+    {
+      "id": "W-08",
+      "task": "Website",
+      "check": "Unknown address falls back to Pantry",
+      "expected": "#/pantry",
+      "actual": "/pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "W-09",
+      "task": "Website",
+      "check": "Missing item address shows a message",
+      "expected": "This ingredient is no longer in your pantry.",
+      "actual": "This ingredient is no longer in your pantry.\n\nGo to Pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-26",
+      "task": "T1",
+      "check": "Empty pantry state (S1)",
+      "expected": "Your pantry is empty. + Add ingredient",
+      "actual": "Today (test date): Thu 5 Nov 2026\n\nYour pantry is empty.\n\nAdd ingredient",
+      "status": "Pass"
+    },
+    {
+      "id": "T1-27",
+      "task": "T1",
+      "check": "Remove shows toast with Undo",
+      "expected": "Toast '<item> removed' Undo",
+      "actual": "Olive oil removed Undo ×",
+      "status": "Pass"
+    },
+    {
+      "id": "W-10",
+      "task": "Website",
+      "check": "?reset restores the sample data and is removed from the address",
+      "expected": "3 sample items; no ?reset in URL",
+      "actual": "3 items, /#/pantry",
+      "status": "Pass"
+    },
+    {
+      "id": "W-11",
+      "task": "Website",
+      "check": "Desktop: tab bar under the header, suggestion cards in 2 columns",
+      "expected": "tabbar top < main top; 2 cards side by side",
+      "actual": "tabbar y=82.1875, main y=131.1875, card tops=360.34375,360.34375",
+      "status": "Pass"
+    },
+    {
+      "id": "W-12",
+      "task": "Website",
+      "check": "No JavaScript errors during the whole run",
+      "expected": "0 errors",
+      "actual": "0",
+      "status": "Pass"
+    }
+  ]
+}
