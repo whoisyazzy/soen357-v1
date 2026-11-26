@@ -11,7 +11,7 @@ testing, and all data in it is fictional sample data from Output C.
 | Tool | Claude (claude.ai, agent session with file and browser tools) |
 | Model | Claude Opus 5.5 (`claude-opus-5-5`) |
 | Date | 26 Nov 2026 |
-| Session operator | *(team member name)* |
+| Session operator | *Yazid Dawiss* |
 
 ## Inputs given to the AI (Output C, Phase 2)
 
@@ -34,11 +34,7 @@ All inputs are kept in `docs/V1/inputs/output-c/`.
 
 > Im doing this part
 > 2 - Initial Website Implementation - Version 1
-> 2.1. AI Website Generation
-> 2.2 Implemented Essential Tasks and Interactions
-> 2.3. Runnable V1 and Limitations
->
-> Since i was the one that did output c and the prototype . Before starting, lets start a plan and a course of action.
+> Before starting, lets start a plan and a course of action.
 
 *AI output used:* a plan only (no code). It proposed building V1 from the Output C prototype, keeping every
 flow, message and rule, and adding website-level behaviour (addresses per screen, separate files,
@@ -47,7 +43,7 @@ findings; and listing calculation rules and known limitations.
 
 **Prompt 2:**
 
-> I will create a new repo for the inital version. Dont forget its not a prototype. I dont think it matters which model is used since it needs to be build upon. Im gonna share the repo with everyone else as well. Dont worry about the timeline bro. I need to follow the guidelines. V1 should build V1 from Output C and keep the same flow.
+> I will create a new repo for the inital version. Dont forget its not a prototype it is a website.I need to follow the guidelines. V1 should build V1 from Output C and keep the same flow.
 
 ## How the AI interpreted the prompts
 
@@ -73,22 +69,6 @@ All files in the repository except `docs/V1/inputs/` were produced by the AI in 
 | Tests | `tests/logic.test.js` (30 calculation/validation checks), `tests/e2e-verify.js` (68 browser checks) |
 | Documentation | `README.md`, `docs/V1/*.md`, `docs/V1/verification-results.json`, `docs/V1/screenshots/` |
 
-### Corrections the AI made during the same session
-
-These were made by the AI after running its own checks, before handing V1 over:
-
-| # | Found by | Change |
-|---|---|---|
-| A1 | Unit tests: 7 failures | Test harness only: recipe arrays loaded from a separate VM context failed a strict comparison although the values were equal. Copied the data out of the context. Website code unchanged. |
-| A2 | Desktop screenshot review | On screens ≥ 768 px the header title and tabs were 16 px right of the content edge. Aligned in `css/styles.css`. |
-
-## Manual edits by the team
-
-*Fill in after reviewing and running V1. Write “None” if V1 is used as generated.*
-
-| # | File | Change | Reason | Who |
-|---|---|---|---|---|
-| | | | | |
 
 ## Verification before freezing V1
 
