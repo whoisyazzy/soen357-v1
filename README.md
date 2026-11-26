@@ -5,7 +5,7 @@ SOEN 357 Phase 3 · The Vth Division · **Version 1 (V1)**, generated with AI fr
 Sample website for learning and educational purposes only. Not for commercial use or commercial testing.
 All foods, recipes and dates are fictional sample data.
 
-**Live website:** `https://<github-username>.github.io/<repo-name>/` *(add after publishing)*
+**Live website:** (https://whoisyazzy.github.io/soen357-v1/#/profile)
 
 ## What it does
 
@@ -41,7 +41,7 @@ python3 -m http.server 8357
 Open this address before each participant (replace the start with the live link):
 
 ```
-https://<github-username>.github.io/<repo-name>/?reset&today=2026-11-05
+https://whoisyazzy.github.io/soen357-v1/#/profile/?reset&today=2026-11-05
 ```
 
 - `?reset` restores the sample data (Profile → *Reset sample data* does the same).
